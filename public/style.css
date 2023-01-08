@@ -11,6 +11,23 @@ img {
   height: auto;
 }
 
+.back-to-home {
+  font-weight: bold;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.post-title {
+  font-weight: bold;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.post {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 p {
   margin: 12px 0 0 0;
 }

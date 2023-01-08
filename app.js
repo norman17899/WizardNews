@@ -9,8 +9,6 @@ app.get("/", (req, res) => {
   
   
   const posts = postBank.list();
-  console.log(posts);
-
 
   const html = `<!DOCTYPE html>
     <html>
@@ -37,11 +35,36 @@ app.get("/", (req, res) => {
     </body>
     </html>`;
 
+  res.send(html)
+});
 
-res.send(html)});
 app.get('/posts/:id', (req, res) => {
   const id = req.params.id;
   const post = postBank.find(id);
+
+  if (!post.id) {
+    res.status(404)
+
+    const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Wizard News</title>
+      <link rel="stylesheet" href="/style.css" />
+    </head>
+    <body>
+      <header><img src="/logo.png"/>Wizard News</header>
+      <div class="not-found">
+        <p class="post">Accio Page! 🧙‍♀️ ... Page Not Found</p>
+        <p class="back-to-home"><a href="/">Back to Home Page</a></p>
+      </div>
+    </body>
+    </html>`
+
+    res.send(html)
+
+  } else {
+
   const html = `<!DOCTYPE html>
     <html>
     <head>
@@ -51,16 +74,15 @@ app.get('/posts/:id', (req, res) => {
       <body>
       <div class='news-list'>
         <header><img src ='/logo.png' /> Wizard News </header>
-      <p>${post.title}<small> (by ${post.name})</small></p>
-      <p>${post.content}</p>
-       
+      <p class="post-title">${post.title}<small> (by ${post.name})</small></p>
+      <p class="post">${post.content}</p>
+      <p class="back-to-home"><a href="/">Back to Home Page</a></p>
       </div>
     </body>
     </html>`;
 
   res.send(html);
-  
-});
+}});
 
 const PORT = 1337;
 
